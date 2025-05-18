@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>criar task</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header>
+        <h1>TaskDone</h1>
+        <p>criar task</p>
+    </header>
+
+    <main>
+        <form id="form-task">
+            <div>
+                <label for="objetivo">Objetivo da Task:</label>
+                <input type="text" id="objetivo" name="objetivo" required>
+            </div>
+            <div>
+                <label for="dataEntrega">Data de Entrega:</label>
+                <input type="date" id="dataEntrega" name="dataEntrega" required>
+            </div>
+            <div>
+    <label>Participantes:</label>
+    <div id="participantes-checkboxes">
+        <label><input type="checkbox" name="participantes[]" value="ana"> Ana</label><br>
+        <label><input type="checkbox" name="participantes[]" value="bruno"> Bruno</label><br>
+        <label><input type="checkbox" name="participantes[]" value="carla"> Carla</label><br>
+        <label><input type="checkbox" name="participantes[]" value="daniel"> Daniel</label><br>
+        <label><input type="checkbox" name="participantes[]" value="elisa"> Elisa</label>
+        <!-- Caixinhas serão preenchidas via JS futuramente -->
+    </div>
+</div>
+            <div id="passos-container">
+    <label>Passo a Passo da Tarefa:</label>
+    <div class="passo">
+        <input type="text" name="passos[]" placeholder="Task 1" required>
+        <button type="button" class="remover-passo" onclick="this.parentElement.remove()">Remover</button>
+    </div>
+    <button type="button" id="adicionar-passo">Adicionar Passo</button>
+</div>
+            <div style="margin-top: 16px;">
+                <button type="submit">Salvar</button>
+                <button type="button" onclick="window.location.href='index.html'">Cancelar</button>
+            </div>
+        </form>
+    </main>
+    <script src="../script.js"></script>
+</body>
+</html>
