@@ -61,3 +61,81 @@ const cadastroForm = document.getElementById('cadastro');
 if (cadastroForm) {
     cadastroForm.addEventListener('submit', cadastrarUsuario);
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const passosContainer = document.getElementById('passos-container');
+    const adicionarPassoBtn = document.getElementById('adicionar-passo');
+    const formTask = document.getElementById('form-task');
+
+    function getPassoCount() {
+        return passosContainer.querySelectorAll('.passo').length;
+    }
+
+    if (adicionarPassoBtn) {
+        adicionarPassoBtn.addEventListener('click', function() {
+            const passoCount = getPassoCount() + 1;
+            const div = document.createElement('div');
+            div.className = 'passo';
+            div.innerHTML = `
+                <input type="text" name="passos[]" placeholder="Task ${passoCount}" required>
+                <button type="button" class="remover-passo">Remover</button>
+            `;
+            passosContainer.insertBefore(div, adicionarPassoBtn);
+
+            div.querySelector('.remover-passo').onclick = function() {
+                div.remove();
+            };
+        });
+
+        // Permite remover o primeiro passo também
+        passosContainer.querySelectorAll('.remover-passo').forEach(btn => {
+            btn.onclick = function() {
+                btn.parentElement.remove();
+            };
+        });
+    }
+
+    // Salvar task no localStorage
+    if (formTask) {
+        formTask.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Pega objetivo e data
+            const objetivo = document.getElementById('objetivo') ? document.getElementById('objetivo').value : '';
+            const dataEntrega = document.getElementById('dataEntrega') ? document.getElementById('dataEntrega').value : '';
+
+            // Pega participantes
+            const participantes = [];
+            document.querySelectorAll('#participantes-checkboxes input[type="checkbox"]:checked').forEach(cb => {
+                participantes.push(cb.value);
+            });
+
+            // Pega passos
+            const passos = [];
+            passosContainer.querySelectorAll('input[name="passos[]"]').forEach(input => {
+                passos.push(input.value);
+            });
+
+            // Monta objeto da task
+            const novaTask = {
+                objetivo,
+                dataEntrega,
+                participantes,
+                passos
+            };
+
+            // Salva no localStorage
+            let tasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+            tasks.push(novaTask);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+
+            alert('Task salva com sucesso!');
+            formTask.reset();
+
+            // Remove passos extras (deixa só o primeiro)
+            passosContainer.querySelectorAll('.passo').forEach((div, idx) => {
+                if (idx > 0) div.remove();
+            });
+        });
+    }
+});
