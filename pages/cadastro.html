@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro - TaskDone</title>
-    <link rel="stylesheet" href="../css/styleLoginCadastro.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 
@@ -17,17 +17,22 @@
         <section class="login-section">
             <h2>Cadastro</h2>
             <form action="#" method="post">
-                <label for="new-username">Usuário:</label>
+                <div for="new-username">Usuário:</div>
                 <input type="text" id="new-username" name="new-username" required>
 
-                <label for="email">E-mail:</label>
+                <div for="email">E-mail:</div>
                 <input type="email" id="email" name="email" required>
 
-                <label for="new-password">Senha:</label>
+                <div for="new-password">Senha:</div>
                 <input type="password" id="new-password" name="new-password" required>
-
+                
+                <div for="new-password">Confirmar senha:</div>
+                <input type="password" id="repeat-password" name="new-password" required>
+                
+                <div>
                 <button type="submit">Cadastrar</button>
-                <p>Já tem uma conta? <a href="index.html">Entrar</a></p>
+                <p>Já tem uma conta? <a href="../index.html">Entrar</a></p>
+                </div>
             </form>
         </section>
     </main>

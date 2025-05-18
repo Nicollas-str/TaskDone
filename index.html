@@ -1,37 +1,43 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>TaskDone</title>
-        <link rel="stylesheet" href="css/style.css" />
-    </head>
-    <body>
-        <main>
-            <article>
-                <div class="container">
-                    <div>
-                        <input
-                            class="login-formulario"
-                            type="text"
-                            id="nome"
-                            placeholder="Nome"
-                        />
-                    </div>
-                    <div>
-                        <input
-                            class="login-formulario"
-                            type="password"
-                            id="senha"
-                            placeholder="Senha"
-                        />
-                    </div>
-                    <div>
-                        <button class="login-button" type="submit">Login</button>
-                    </div>
-                </div>
-            </article>
-        </main>
-        <script src="script.js"></script>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskDone - Gerencie suas tarefas em equipe</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>s
+
+    <header>
+        <h1>TaskDone</h1>
+        <p>Sua ferramenta simples e eficiente para gerenciamento de tarefas em equipe</p>
+    </header>
+
+    <main>
+        <section id="login-section" class="login-section">
+            <h2>Acesse sua conta</h2>
+            <form id="login" method="post">
+                <div for="username">Usuário:</div>
+                <input type="text" id="username" name="username" required>
+
+                <div for="password">Senha:</div>
+                <input type="password" id="password" name="password" required>
+
+                <div>
+                <button class="login-button" type="submit">Entrar</button>
+                </div>    
+            </form>
+                
+        <p>Não tem uma conta? <a href="pages/cadastro.html">Cadastre-se</a></p>
+
+    
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 TaskDone - Desenvolvido por estudantes de ADS</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
 </html>
