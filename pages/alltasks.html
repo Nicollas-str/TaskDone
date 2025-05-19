@@ -3,15 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Tasks</title>
+    <title>Todas as Tasks</title>
     <link rel="stylesheet" href="../css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .task-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .task-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .task-card h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .task-card p {
+            margin: 5px 0;
+        }
+        .participantes {
+            font-style: italic;
+            color: #7f8c8d;
+        }
+        .passos-list {
+            margin-left: 20px;
+        }
+        .data-entrega {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        .btn-criar-task {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .btn-criar-task:hover {
+            background-color: #1a252f;
+        }
+        .text-center {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1 class="text-center">Pagina com todas as tasks</h1>
+        <h1 class="text-center">Todas as Tasks</h1>
     </header>
     <main>
-        <p class="text-center"></p>
+        <p class="text-center">Clique no botão abaixo para criar uma nova task!</p>
+        <a href="criartask.html" class="btn-criar-task">Criar Nova Task</a>
+
+        <div class="task-container" id="tasks-container">
+        </div>
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tasksContainer = document.getElementById('tasks-container');
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+            if (tasks.length === 0) {
+                tasksContainer.innerHTML = '<p class="text-center">Nenhuma task cadastrada ainda.</p>';
+                return;
+            }
+
+            tasks.forEach((task, index) => {
+                const taskCard = document.createElement('div');
+                taskCard.className = 'task-card';
+                
+                let passosHTML = '';
+                if (task.passos && task.passos.length > 0) {
+                    passosHTML = '<ul class="passos-list">';
+                    task.passos.forEach(passo => {
+                        passosHTML += `<li>${passo}</li>`;
+                    });
+                    passosHTML += '</ul>';
+                }
+
+                let participantesHTML = '';
+                if (task.participantes && task.participantes.length > 0) {
+                    participantesHTML = `<p class="participantes">Participantes: ${task.participantes.join(', ')}</p>`;
+                }
+
+                taskCard.innerHTML = `
+                    <h3>${task.objetivo || 'Task sem título'}</h3>
+                    ${participantesHTML}
+                    <p class="data-entrega">Data de Entrega: ${task.dataEntrega || 'Não especificada'}</p>
+                    <h4>Passos:</h4>
+                    ${passosHTML}
+                `;
+                
+                tasksContainer.appendChild(taskCard);
+            });
+        });
+    </script>
 </body>
 </html>
