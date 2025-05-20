@@ -67,6 +67,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const adicionarPassoBtn = document.getElementById('adicionar-passo');
     const formTask = document.getElementById('form-task');
 
+    // Preencher participantes dinamicamente
+    const participantesContainer = document.getElementById('participantes-checkboxes');
+    if (participantesContainer) {
+        participantesContainer.innerHTML = ''; // Limpa o container
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        users.forEach(user => {
+            const label = document.createElement('label');
+            label.innerHTML = `<input type="checkbox" name="participantes[]" value="${user.username}"> ${user.username}`;
+            participantesContainer.appendChild(label);
+            participantesContainer.appendChild(document.createElement('br'));
+        });
+    }
+
     function getPassoCount() {
         return passosContainer.querySelectorAll('.passo').length;
     }
