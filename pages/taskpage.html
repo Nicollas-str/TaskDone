@@ -5,108 +5,28 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>donezone</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- Importa estilos globais -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
-    <style>
-      html,body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Inter', sans-serif;
-        background: #fff;
-        color: #fff;
-        display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-      }
-      header {
-        background: #2c3e50;
-        padding: 1rem 2rem;
-        border-radius: 1rem;
-        box-shadow: 0 0 10px #000;
-      }
-      header h1 {
-        font-size: 1.5rem;
-        margin: 0;
-      }
-      main {
-        flex-grow: 1;
-        padding: 2rem;
-      }
-      .c {
-        background: #2c3e50;
-        padding: 2rem;
-        border-radius: 1rem;
-        box-shadow: 0 0 10px #000;
-        max-width: 600px;
-        margin: auto;
-      }
-      .t {
-        font-size: 1.8rem;
-        margin-bottom: 1rem;
-      }
-      .d {
-        font-size: 1rem;
-        margin-bottom: 1.5rem;
-        color: #fff;
-      }
-      .m {
-        font-size: 0.9rem;
-        color: #ccc;
-        margin-bottom: 1rem;
-      }
-      .s {
-        margin-bottom: 1.5rem;
-      }
-      .s label {
-        display: flex;
-        align-items: center;
-        margin-bottom: 0.5rem;
-        font-size: 1rem;
-        color: #fff;
-        cursor: pointer;
-      }
-      .s input[type="checkbox"] {
-        margin-right: 0.5rem;
-        transform: scale(1.2);
-      }
-      .btn {
-        background: #27ae60;
-        color: #fff;
-        border: none;
-        padding: 0.8rem 1.2rem;
-        border-radius: 0.5rem;
-        font-size: 1rem;
-        cursor: pointer;
-        transition: background 0.2s ease-in-out;
-      }
-      .btn:hover {
-        background: #219150;
-      }
-      footer {
-        text-align: center;
-        font-size: 0.875rem;
-        color: #666;
-        padding: 1rem 0;
-      }
-      a {
-        color: #fff;
-        text-decoration: none;
-      }
-    </style>
   </head>
   <body>
     <header><h1>donezone</h1></header>
+    <!-- Cabeçalho da página -->
     <main>
       <section class="c">
-        <div class="t" id="t-i"></div>
-        <div class="d" id="t-x"></div>
-        <div class="s" id="t-s"></div>
-        <div class="m" id="t-m"></div>
+        <!-- Bloco principal da tarefa -->
+        <div class="t" id="t-i"></div> <!-- Título/ID da tarefa -->
+        <div class="d" id="t-x"></div> <!-- Descrição da tarefa -->
+        <div class="s" id="t-s"></div> <!-- Passos da tarefa -->
+        <div class="m" id="t-m"></div> <!-- Metadados: criador e entrega -->
         <button class="btn" onclick="x()">Finalizar tarefa</button>
         <div id="x-cnv"></div>
       </section>
     </main>
     <footer>donezone</footer>
+    <!-- Rodapé fixo -->
     <script>
+      // Dados simulados da tarefa
       const _ = {
         i: "Task #000",
         x: "Task description",
@@ -120,10 +40,12 @@
         e: "23/05/2025 - 18:30"
       };
 
+      // Função para preencher campos da tarefa
       t = (q, v) => document.getElementById(q).textContent = v;
       t("t-i", _.i);
       t("t-x", _.x);
 
+      // Renderiza os passos
       const q = document.getElementById("t-s");
       _.p.map((v, i) => {
         let z = document.createElement("label"),
@@ -134,8 +56,10 @@
         q.appendChild(z);
       });
 
+      // Exibe criador e data de entrega
       document.getElementById("t-m").innerHTML = `Criado por: ${_.a}<br>Entrega: ${_.e}`;
 
+      // Função para finalizar tarefa (volta para lista)
       function x() {
         location.href = "alltasks.html";
       }

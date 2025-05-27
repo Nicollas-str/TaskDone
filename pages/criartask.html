@@ -5,15 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>criar task</title>
     <link rel="stylesheet" href="../css/style.css">
+    <!-- Importa estilos globais -->
 </head>
 <body>
     <header>
         <h1>TaskDone</h1>
         <p>criar task</p>
     </header>
-
+    <!-- Cabeçalho -->
     <main>
         <form id="form-task">
+            <!-- Campos do formulário de task -->
             <div>
                 <label for="objetivo">Objetivo da Task:</label>
                 <input type="text" id="objetivo" name="objetivo" required>
@@ -38,12 +40,13 @@
 </div>
             <div style="margin-top: 16px;">
                 <button type="submit">Salvar</button>
-                <button type="button" onclick="window.location.href='index.html'">Cancelar</button>
+                <button type="button" onclick="window.location.href='alltasks.html'">Cancelar</button>
                 <br>
                 <button type="button" onclick="window.location.href='alltasks.html'" style="margin-top:8px;">Voltar para tela de todas as tasks</button>
             </div>
         </form>
     </main>
+    <!-- Formulário de criação de task -->
     <script src="../script.js"></script>
 </body>
 </html>

@@ -1,3 +1,6 @@
+// TaskDone - script.js
+// Funções de login, cadastro, manipulação de tasks e preenchimento dinâmico
+
 // Função para verificar login
 function verificarLogin(event) {
     event.preventDefault(); // Previne o comportamento padrão do formulário
@@ -61,6 +64,9 @@ const cadastroForm = document.getElementById('cadastro');
 if (cadastroForm) {
     cadastroForm.addEventListener('submit', cadastrarUsuario);
 }
+
+// DOMContentLoaded: manipulação de participantes, passos e tasks
+// Preenche participantes, adiciona/remover passos e salva tasks
 
 document.addEventListener('DOMContentLoaded', function() {
     const passosContainer = document.getElementById('passos-container');
