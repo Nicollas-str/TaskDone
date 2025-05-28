@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ---------------------------------------------
-    // EXIBIÇÃO DAS TASKS SALVAS (alltasks.html)
+    // 3. EXIBIÇÃO DAS TASKS SALVAS (alltasks.html)
     // ---------------------------------------------
     const tasksContainer = document.getElementById('tasks-container');
     if (tasksContainer) {
@@ -186,6 +186,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // ---------------------------------------------
+    // 4. EXIBIÇÃO DA TASK SELECIONADA (taskpage.html)
+    // ---------------------------------------------
 
     const taskPageIdentifier = document.getElementById('t-i');
     if (taskPageIdentifier) {
