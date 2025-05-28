@@ -4,62 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todas as Tasks</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <!-- Importa estilos globais -->
+    <link rel="stylesheet" href="../css/style.css"> <!-- Seu CSS externo -->
 </head>
 <body>
+    <!-- Cabeçalho -->
     <header>
         <h1 class="text-center">Todas as Tasks</h1>
     </header>
-    <!-- Cabeçalho -->
+
+    <!-- Conteúdo principal -->
     <main>
         <p class="text-center">Clique no botão abaixo para criar uma nova task!</p>
         <a href="criartask.html" class="btn-criar-task">Criar Nova Task</a>
 
+        <!-- Container onde as tasks serão exibidas -->
         <div class="task-container" id="tasks-container">
+            <!-- Tasks serão carregadas via JavaScript -->
         </div>
     </main>
-    <!-- Lista de tasks será preenchida via JS -->
-    <script>
-        // Renderiza tasks salvas no localStorage
-        document.addEventListener('DOMContentLoaded', function() {
-            const tasksContainer = document.getElementById('tasks-container');
-            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
-            if (tasks.length === 0) {
-                tasksContainer.innerHTML = '<p class="text-center">Nenhuma task cadastrada ainda.</p>';
-                return;
-            }
-
-            tasks.forEach((task, index) => {
-                const taskCard = document.createElement('div');
-                taskCard.className = 'task-card';
-                
-                let passosHTML = '';
-                if (task.passos && task.passos.length > 0) {
-                    passosHTML = '<ul class="passos-list">';
-                    task.passos.forEach(passo => {
-                        passosHTML += `<li>${passo}</li>`;
-                    });
-                    passosHTML += '</ul>';
-                }
-
-                let participantesHTML = '';
-                if (task.participantes && task.participantes.length > 0) {
-                    participantesHTML = `<p class="participantes">Participantes: ${task.participantes.join(', ')}</p>`;
-                }
-
-                taskCard.innerHTML = `
-                    <h3>${task.objetivo || 'Task sem título'}</h3>
-                    ${participantesHTML}
-                    <p class="data-entrega">Data de Entrega: ${task.dataEntrega || 'Não especificada'}</p>
-                    <h4>Passos:</h4>
-                    ${passosHTML}
-                `;
-                
-                tasksContainer.appendChild(taskCard);
-            });
-        });
-    </script>
+    <!-- Script JavaScript externo -->
+    <script src="../script.js"></script>
 </body>
 </html>
