@@ -115,6 +115,9 @@ button:hover, .btn:hover, .btn-criar-task:hover {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+.task-container:hover {
+    cursor: pointer;
+}
 .task-card {
   background: #f4f8ff;
   border-radius: 6px;
