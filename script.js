@@ -56,10 +56,13 @@ if (cadastroForm) {
 }
 
 // =============================================
-// 2. FORMULÁRIO DE TASK: PARTICIPANTES, PASSOS, SALVAR
+// 2. LÓGICA DE TASKS
 // =============================================
 
 document.addEventListener('DOMContentLoaded', function () {
+    // ---------------------------------------------
+    // FORMULÁRIO DE TASK: PARTICIPANTES, PASSOS, SALVAR (criartask.html)
+    // ---------------------------------------------
     const passosContainer = document.getElementById('passos-container');
     const adicionarPassoBtn = document.getElementById('adicionar-passo');
     const formTask = document.getElementById('form-task');
@@ -76,13 +79,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function getPassoCount() {
-        return passosContainer.querySelectorAll('.passo').length;
-    }
-
     if (adicionarPassoBtn) {
         adicionarPassoBtn.addEventListener('click', function () {
-            const passoCount = getPassoCount() + 1;
+            const passoCount = passosContainer.querySelectorAll('.passo').length + 1;
             const div = document.createElement('div');
             div.className = 'passo';
             div.innerHTML = `
@@ -140,49 +139,101 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // =============================================
-    // 3. EXIBIÇÃO DAS TASKS SALVAS (ALLTASKS.HTML)
-    // =============================================
-
+    // ---------------------------------------------
+    // EXIBIÇÃO DAS TASKS SALVAS (alltasks.html)
+    // ---------------------------------------------
     const tasksContainer = document.getElementById('tasks-container');
     if (tasksContainer) {
         const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
         if (tasks.length === 0) {
             tasksContainer.innerHTML = '<p class="text-center">Nenhuma task cadastrada ainda.</p>';
-            return;
-        }
+        } else {
+            tasks.forEach((task, index) => {
+                const taskCard = document.createElement('div');
+                taskCard.className = 'task-card';
 
-        tasks.forEach((task, index) => {
-            const taskCard = document.createElement('div');
-            taskCard.className = 'task-card';
+                let passosHTML = '';
+                if (task.passos && task.passos.length > 0) {
+                    passosHTML = '<ul class="passos-list">';
+                    task.passos.forEach(passo => {
+                        passosHTML += `<li>${passo}</li>`;
+                    });
+                    passosHTML += '</ul>';
+                }
 
-            let passosHTML = '';
-            if (task.passos && task.passos.length > 0) {
-                passosHTML = '<ul class="passos-list">';
-                task.passos.forEach(passo => {
-                    passosHTML += `<li>${passo}</li>`;
+                let participantesHTML = '';
+                if (task.participantes && task.participantes.length > 0) {
+                    participantesHTML = `<p class="participantes">Participantes: ${task.participantes.join(', ')}</p>`;
+                }
+
+                taskCard.innerHTML = `
+                    <h3>${task.objetivo || 'Task sem título'}</h3>
+                    ${participantesHTML}
+                    <p class="data-entrega">Data de Entrega: ${task.dataEntrega || 'Não especificada'}</p>
+                    <h4>Passos:</h4>
+                    ${passosHTML}
+                `;
+
+                // Adiciona evento de clique para redirecionar para taskpage.html
+                taskCard.addEventListener('click', function () {
+                    sessionStorage.setItem('selectedTaskIndex', index);
+                    window.location.href = 'taskpage.html';
                 });
-                passosHTML += '</ul>';
+
+                tasksContainer.appendChild(taskCard);
+            });
+        }
+    }
+
+
+    const taskPageIdentifier = document.getElementById('t-i');
+    if (taskPageIdentifier) {
+        const selectedTaskIndex = sessionStorage.getItem('selectedTaskIndex');
+        if (selectedTaskIndex !== null) {
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            const task = tasks[selectedTaskIndex];
+
+            if (task) {
+                document.getElementById('t-i').textContent = task.objetivo || 'Task sem título';
+                document.getElementById('t-x').textContent = `Participantes: ${task.participantes ? task.participantes.join(', ') : 'N/A'}`;
+                
+                const passosContainer = document.getElementById('t-s');
+                passosContainer.innerHTML = '';
+                if (task.passos && task.passos.length > 0) {
+                    task.passos.forEach((passo, i) => {
+                        let label = document.createElement("label");
+                        let checkbox = document.createElement("input");
+                        checkbox.type = "checkbox";
+                        label.appendChild(checkbox);
+                        label.appendChild(document.createTextNode(` Passo ${i + 1}: ${passo}`));
+                        passosContainer.appendChild(label);
+                    });
+                }
+
+                document.getElementById('t-m').innerHTML = `Entrega: ${task.dataEntrega || 'Não especificada'}`;
+            } else {
+                document.getElementById('t-i').textContent = "Erro: Task não encontrada.";
             }
-
-            let participantesHTML = '';
-            if (task.participantes && task.participantes.length > 0) {
-                participantesHTML = `<p class="participantes">Participantes: ${task.participantes.join(', ')}</p>`;
-            }
-
-            taskCard.innerHTML = `
-                <h3>${task.objetivo || 'Task sem título'}</h3>
-                ${participantesHTML}
-                <p class="data-entrega">Data de Entrega: ${task.dataEntrega || 'Não especificada'}</p>
-                <h4>Passos:</h4>
-                ${passosHTML}
-            `;
-
-            tasksContainer.appendChild(taskCard);
-        });
+        } else {
+            document.getElementById('t-i').textContent = "Nenhuma task selecionada.";
+        }
     }
 });
 
 
+ //Função para finalizar a tarefa e voltar para a lista.
 
+
+function x() {
+    // Obtém o índice da task selecionada
+    const selectedTaskIndex = sessionStorage.getItem('selectedTaskIndex');
+    if (selectedTaskIndex !== null) {
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        tasks.splice(selectedTaskIndex, 1); // Remove a task pelo índice
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        sessionStorage.removeItem('selectedTaskIndex');
+    }
+    // Redireciona para a lista de tasks
+    location.href = "alltasks.html";
+}

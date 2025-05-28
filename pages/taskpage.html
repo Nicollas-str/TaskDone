@@ -23,46 +23,8 @@
         <div id="x-cnv"></div>
       </section>
     </main>
-    <footer>donezone</footer>
+    <footer>taskDone</footer>
     <!-- Rodapé fixo -->
-    <script>
-      // Dados simulados da tarefa
-      const _ = {
-        i: "Task #000",
-        x: "Task description",
-        p: [
-          "Passo 1",
-          "Passo 2",
-          "Passo 3",
-          "Passo 4"
-        ],
-        a: "Felipe Coelho",
-        e: "23/05/2025 - 18:30"
-      };
-
-      // Função para preencher campos da tarefa
-      t = (q, v) => document.getElementById(q).textContent = v;
-      t("t-i", _.i);
-      t("t-x", _.x);
-
-      // Renderiza os passos
-      const q = document.getElementById("t-s");
-      _.p.map((v, i) => {
-        let z = document.createElement("label"),
-            y = document.createElement("input");
-        y.type = "checkbox";
-        z.appendChild(y);
-        z.append(` Passo ${i + 1}: ${v}`);
-        q.appendChild(z);
-      });
-
-      // Exibe criador e data de entrega
-      document.getElementById("t-m").innerHTML = `Criado por: ${_.a}<br>Entrega: ${_.e}`;
-
-      // Função para finalizar tarefa (volta para lista)
-      function x() {
-        location.href = "alltasks.html";
-      }
-    </script>
+    <script src="../script.js"></script>
   </body>
 </html>
